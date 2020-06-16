@@ -28,15 +28,15 @@ public class serverWorker extends Thread{
         try {
             passwordList.add("admin");
             userList.add("admin");
+            passwordList.add("duck");
+            userList.add("duck");
             handleClientSocket();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    private void handleClientSocket() throws IOException, InterruptedException {
+    private void handleClientSocket() throws IOException {
         this.inputStream = clientSocket.getInputStream();
         this.outputStream = clientSocket.getOutputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -68,6 +68,9 @@ public class serverWorker extends Thread{
                 else if("print".equalsIgnoreCase(cmd)){
                     printInfo();
                 }
+                else if("attach".equalsIgnoreCase(cmd)){
+                    handleFile(token);
+                }
                 else {
                     String msg = "Error command\n";
                     outputStream.write(msg.getBytes());
@@ -75,6 +78,36 @@ public class serverWorker extends Thread{
             }
         }
         clientSocket.close();
+    }
+
+    private void handleFile(String[] token) throws IOException {
+        String user = token[1];
+        String direction = token[2];
+        File toSend = new File(direction);
+        OutputStream os = clientSocket.getOutputStream();
+        boolean isTopic = user.charAt(0) == '#';
+        byte[] mybytearray = new byte[(int) toSend.length()];
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(toSend));
+        bis.read(mybytearray, 0, mybytearray.length);
+
+        List<serverWorker> workerList = server.getWorkerList();
+        for(serverWorker worker : workerList){
+            if(isTopic){
+                if(worker.isMemberOfTopic(user)){
+                    String outMsg = "from " + user + "\n";
+                    os.write(mybytearray, 0, mybytearray.length);
+                    worker.send(outMsg);
+                    os.flush();
+                }
+            }
+            if(user.equalsIgnoreCase(worker.getLogin())){
+                String outMsg = "from " + login + "\n";
+                os.write(mybytearray, 0, mybytearray.length);
+                worker.send(outMsg);
+                os.flush();
+            }
+        }
+
     }
 
     private void printInfo() throws IOException {
@@ -194,12 +227,12 @@ public class serverWorker extends Thread{
                     for (serverWorker worker : workerList) {
                         if (worker.getLogin() != null) {
                             if (!login.equals(worker.getLogin()) && login.contentEquals("placeHolder")) {
-                                String msg_1 = worker.getLogin() + ": online" + "\n";
+                                String msg_1 = "online " + worker.getLogin() + "\n";
                                 send(msg_1);
                             }
                         }
                     }
-                    String onlmsg = login + " online" + "\n";
+                    String onlmsg = "online " + login + "\n";
                     for (serverWorker worker : workerList) {
                         if (!login.equals(worker.getLogin()) && !login.contentEquals("placeHolder")) {
                             worker.send(onlmsg);
@@ -209,6 +242,7 @@ public class serverWorker extends Thread{
                 else{
                     msg = "Error\n";
                     outputStream.write(msg.getBytes());
+                    System.err.println("Login failed: " + login);
                 }
             }
             else{

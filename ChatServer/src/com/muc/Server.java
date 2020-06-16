@@ -1,8 +1,10 @@
 package com.muc;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,9 @@ public class Server extends Thread{
     public void run() {
         try {
             ServerSocket serverSocket = new ServerSocket(serverPort);
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            System.out.println("IP Address: " + inetAddress.getHostAddress());
+            System.out.println("Host Name: " + inetAddress.getHostName());
             while(true) {
                 System.out.println("About to accept client connection ...");
                 Socket clientSocket = serverSocket.accept();
