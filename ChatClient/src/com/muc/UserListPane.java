@@ -8,15 +8,17 @@ import java.io.IOException;
 
 public class UserListPane extends JPanel implements UserStatusListener{
     private final ChatClient client;
-    private JList<String> userListUI;
-    private DefaultListModel<String> userListModel;
+    public JList<String> userListUI;
+    public DefaultListModel<String> userListModel;
 
 
     public UserListPane(ChatClient client) {
         this.client = client;
         this.client.addUserStatusListener(this);
+
         userListModel = new DefaultListModel<>();
         userListUI = new JList<>(userListModel);
+
         setLayout(new BorderLayout());
         add(new JScrollPane(userListUI), BorderLayout.CENTER);
 
@@ -56,12 +58,12 @@ public class UserListPane extends JPanel implements UserStatusListener{
     }
 
     @Override
-    public void online(String userName) {
-        userListModel.addElement(userName);
+    public void online(String username) {
+        userListModel.addElement(username);
     }
 
     @Override
-    public void offline(String userName) {
-        userListModel.removeElement(userName);
+    public void offline(String username) {
+        userListModel.removeElement(username);
     }
 }

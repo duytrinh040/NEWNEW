@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class LoginWindow extends JFrame {
-    private final ChatClient client;
+    private ChatClient client;
     JTextField loginField = new JTextField();
     JPasswordField passwordField = new JPasswordField();
     JButton loginButton = new JButton("Login");
@@ -57,7 +57,7 @@ public class LoginWindow extends JFrame {
         }
     }
 
-    //public static void main(String[] args) {
-      //  LoginWindow loginWindow = new LoginWindow();
-    //}
+   // public static void main(String[] args) {
+   //     LoginWindow loginWindow = new LoginWindow();
+   // }
 }

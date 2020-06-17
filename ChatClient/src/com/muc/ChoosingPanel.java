@@ -24,6 +24,14 @@ public class ChoosingPanel extends JFrame{
         pack();
         setVisible(true);
 
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayRegister();
+                setVisible(false);
+            }
+        });
+
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -31,6 +39,10 @@ public class ChoosingPanel extends JFrame{
                 setVisible(false);
             }
         });
+    }
+
+    private void displayRegister() {
+        RegisterWindow registerWindow = new RegisterWindow(client);
     }
 
     private void displayLogin() {

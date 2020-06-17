@@ -124,7 +124,7 @@ public class serverWorker extends Thread{
                 if (password.equals(confirmPass)) {
                     userList.add(username);
                     passwordList.add(password);
-                    String msgConfirm = "Register success\n" + "Username: " + username + "\n" + "Password: " + password + "\n";
+                    String msgConfirm = "Register success" + "\n";
                     try {
                         outputStream.write(msgConfirm.getBytes());
                     } catch (IOException e) {

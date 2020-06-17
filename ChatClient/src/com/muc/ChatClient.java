@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ChatClient {
-    public static String IP;
     private final String serverName;
     private final int serverPort;
     private Socket socket;
@@ -28,7 +27,7 @@ public class ChatClient {
     }
 
     public static void main(String[] args) throws IOException {
-        ChatClient client = new ChatClient(IP, 8818);
+        ChatClient client = new ChatClient("localhost", 8818);
         client.addUserStatusListener(new UserStatusListener() {
             @Override
             public void online(String userName) {
@@ -68,7 +67,7 @@ public class ChatClient {
     }
 
     public boolean login(String username, String password) throws IOException {
-        String cmd = "login " + username + " " + password + "\n";
+        String cmd = "login" + " " + username + " " + password + "\n";
         serverOut.write(cmd.getBytes());
         String response = bufferredIn.readLine();
         System.out.println("Response: " + response + "\n");
@@ -76,6 +75,19 @@ public class ChatClient {
             startMessageReader();
             return true;
         } else {
+            return false;
+        }
+    }
+
+    public boolean register(String username, String password, String re_password) throws IOException {
+        String cmd = "register" + " " + username + " " + password + " " + re_password + "\n";
+        serverOut.write(cmd.getBytes());
+        String response = bufferredIn.readLine();
+        System.out.println("Response: " + response + "\n");
+        if("Register success".equalsIgnoreCase(response)){
+            return true;
+        }
+        else{
             return false;
         }
     }

@@ -39,6 +39,7 @@ public class IPPanel extends JFrame {
     private void doConnect() {
         String IP = IPField.getText();
         this.client = new ChatClient(IP, 8818);
+        client.connect();
         if(client.connect()){
             ChoosingPanel choosingPanel = new ChoosingPanel(client);
         }
