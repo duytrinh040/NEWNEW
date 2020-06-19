@@ -17,8 +17,9 @@ public class ChatClient {
     private BufferedReader bufferredIn;
 
 
-    private ArrayList<UserStatusListener> userStatusListeners = new ArrayList<>();
-    private ArrayList<MessageListener> messageListeners = new ArrayList<>();
+    public ArrayList<UserStatusListener> userStatusListeners = new ArrayList<>();
+    public ArrayList<MessageListener> messageListeners = new ArrayList<>();
+
 
 
     public ChatClient(String serverName, int serverPort) {
@@ -27,7 +28,7 @@ public class ChatClient {
     }
 
     public static void main(String[] args) throws IOException {
-        ChatClient client = new ChatClient("localhost", 8818);
+        ChatClient client = new ChatClient("192.168.0.190", 8818);
         client.addUserStatusListener(new UserStatusListener() {
             @Override
             public void online(String userName) {
@@ -61,7 +62,7 @@ public class ChatClient {
     }
 
     public void msg(String sendTo, String body) throws IOException {
-        String msg = "msg " + sendTo + " " + body + "\n";
+        String msg = "msg" + " " + sendTo + " " + body + "\n";
         serverOut.write(msg.getBytes());
 
     }

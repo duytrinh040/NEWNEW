@@ -35,13 +35,13 @@ public class LoginWindow extends JFrame {
         setVisible(true);
     }
 
-    private void doLogin() {
+    public void doLogin() {
         String username = loginField.getText();
         String password = passwordField.getText();
-
+        UserListPane userListPane = new UserListPane(client);
         try {
             if(client.login(username, password)){
-                UserListPane userListPane = new UserListPane(client);
+
                 JFrame frame = new JFrame("User List");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(400,600);

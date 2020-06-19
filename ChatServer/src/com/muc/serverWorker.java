@@ -26,10 +26,10 @@ public class serverWorker extends Thread{
     @Override
     public void run() {
         try {
-            passwordList.add("admin");
+            /*passwordList.add("admin");
             userList.add("admin");
             passwordList.add("duck");
-            userList.add("duck");
+            userList.add("duck");*/
             handleClientSocket();
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class serverWorker extends Thread{
                 }
             }
         }
-        clientSocket.close();
+       // clientSocket.close();
     }
 
     private void handleFile(String[] token) throws IOException {

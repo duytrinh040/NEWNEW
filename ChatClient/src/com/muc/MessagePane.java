@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class MessagePane extends JPanel implements MessageListener {
+public class MessagePane extends JPanel implements MessageListener{
 
     private final ChatClient client;
     private final String username;
@@ -43,8 +43,8 @@ public class MessagePane extends JPanel implements MessageListener {
 
     @Override
     public void onMessage(String fromLogin, String msgBody) {
-        if(username.equalsIgnoreCase(fromLogin)) {
-            String line = fromLogin + ":" + " " + msgBody;
+        if(!username.equalsIgnoreCase(fromLogin)) {
+            String line = fromLogin + " " + msgBody;
             listModel.addElement(line);
         }
     }

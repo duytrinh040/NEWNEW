@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class UserListPane extends JPanel implements UserStatusListener{
+
+    private String username;
     private final ChatClient client;
     public JList<String> userListUI;
     public DefaultListModel<String> userListModel;
@@ -39,8 +41,8 @@ public class UserListPane extends JPanel implements UserStatusListener{
         });
     }
 
-    public static void main(String[] args) {
-        ChatClient client = new ChatClient("localhost", 8818);
+    /*public static void main(String[] args) {
+        ChatClient client = new ChatClient(IP, 8818);
         UserListPane userListPane = new UserListPane(client);
         JFrame frame = new JFrame("User List");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +57,7 @@ public class UserListPane extends JPanel implements UserStatusListener{
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
     @Override
     public void online(String username) {
