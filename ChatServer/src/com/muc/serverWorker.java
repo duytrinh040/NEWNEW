@@ -16,6 +16,8 @@ public class serverWorker extends Thread{
     private HashSet<String> topicSet = new HashSet<>();
     private static  ArrayList<String> userList = new ArrayList<>();
     private static  ArrayList<String> passwordList = new ArrayList<>();
+    private static  ArrayList<String> userListOnline = new ArrayList<>();
+
 
 
     public serverWorker(Server server, Socket clientSocket) {
@@ -223,12 +225,20 @@ public class serverWorker extends Thread{
                     this.login = login;
                     outputStream.write(msg.getBytes());
                     System.out.println(login + " logged in");
+
+                    userListOnline.add(login);
+                    outputStream.write(userListOnline.toArray().toString().getBytes());
+                    System.out.println(userListOnline.toArray().toString().getBytes());
+
                     List<serverWorker> workerList = server.getWorkerList();
                     for (serverWorker worker : workerList) {
                         if (worker.getLogin() != null) {
                             if (!login.equals(worker.getLogin()) && login.contentEquals("placeHolder")) {
                                 String msg_1 = "online " + worker.getLogin() + "\n";
                                 send(msg_1);
+
+
+
                             }
                         }
                     }

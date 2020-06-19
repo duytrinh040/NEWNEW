@@ -74,6 +74,7 @@ public class ChatClient {
         System.out.println("Response: " + response + "\n");
         if ("Log in succeed".equalsIgnoreCase(response)) {
             startMessageReader();
+            System.out.println("client received: " + serverIn.read());
             return true;
         } else {
             return false;
