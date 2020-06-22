@@ -39,6 +39,12 @@ public class LoginWindow extends JFrame {
         String username = loginField.getText();
         String password = passwordField.getText();
         UserListPane userListPane = new UserListPane(client);
+
+        if (username.equals("") || password.equals("")){
+            //warning here
+            JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+        }
+
         try {
             if(client.login(username, password)){
 

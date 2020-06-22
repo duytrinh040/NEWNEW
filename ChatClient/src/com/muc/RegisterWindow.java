@@ -44,6 +44,11 @@ public class RegisterWindow extends JFrame {
         String password = passwordField_1.getText();
         String re_password = passwordField_2.getText();
 
+        if(username.equals("") || password.equals("") || re_password.equals("")){
+            // warning here
+            JOptionPane.showMessageDialog(this, "Somehow this Fail! Life is tough!");
+        }
+
         if(password.equalsIgnoreCase(re_password)){
             try {
                 if(client.register(username, password, re_password)){
